@@ -1,31 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { useApp } from "../context/AppContext";
 import { getTranslation } from "../translations/i18n";
-import { mockPetPlaces } from "../data/mockData";
 import { Product } from "../types";
 import {
-  Crown,
-  Sparkles,
-  PhoneCall,
-  MapPin,
-  CheckCircle2,
-  HeartHandshake,
-  ShieldCheck,
-  Zap,
-  ArrowRight,
   Compass,
-  Star,
+  Zap,
+  PhoneCall,
+  HeartHandshake,
+  Check,
+  ArrowRight,
 } from "lucide-react";
 
 export const PremiumFeaturesPage: React.FC = () => {
   const { language, addToCart, setActivePage } = useApp();
-
-  const [activeTab, setActiveTab] = useState<"walking" | "emergency" | "breed" | "map">("map");
-  const [selectedPlaceType, setSelectedPlaceType] = useState<string>("all");
-
-  const filteredPlaces = mockPetPlaces.filter(
-    (p) => selectedPlaceType === "all" || p.type === selectedPlaceType
-  );
 
   const handleContinueToCart = () => {
     const premiumProduct: Product = {
@@ -37,9 +24,12 @@ export const PremiumFeaturesPage: React.FC = () => {
       priceTk: 500,
       rating: 5.0,
       reviewsCount: 320,
-      image: "https://images.unsplash.com/photo-1519331379826-f10be5486c6f?auto=format&fit=crop&w=800&q=80",
-      descriptionEn: "Includes Pet Walking, 24/7 Emergency Ambulance, Genetic Breed Matching, and Full Pet-Friendly Places Map access.",
-      descriptionBn: "পেট ওয়াকিং, ২৪/৭ জরুরি অ্যাম্বুলেন্স, জিনেটিক ব্রিড ম্যাচিং এবং ইন্টারেক্টিভ ম্যাপ সুবিধা।",
+      image:
+        "https://images.unsplash.com/photo-1519331379826-f10be5486c6f?auto=format&fit=crop&w=800&q=80",
+      descriptionEn:
+        "Includes Pet Walking, 24/7 Emergency Ambulance, Genetic Breed Matching, and Full Pet-Friendly Places Map access.",
+      descriptionBn:
+        "পেট ওয়াকিং, ২৪/৭ জরুরি অ্যাম্বুলেন্স, জিনেটিক ব্রিড ম্যাচিং এবং ইন্টারেক্টিভ ম্যাপ সুবিধা।",
       stock: 999,
     };
 
@@ -47,218 +37,128 @@ export const PremiumFeaturesPage: React.FC = () => {
     setActivePage("cart");
   };
 
+  const services = [
+    {
+      id: "map",
+      title: "Pet-Friendly Spots Map",
+      description:
+        "Interactive map to discover parks, pet-friendly cafes, clinics, and grooming spots in Dhaka, Chattogram & Sylhet with turn-by-turn navigation.",
+      image:
+        "https://images.unsplash.com/photo-1534361960057-19889db9621e?auto=format&fit=crop&w=800&q=80",
+      icon: <Compass className="w-5 h-5 text-[#dfba61]" />,
+      tag: "GPS Live Map",
+    },
+    {
+      id: "walking",
+      title: "Pet Walking Service",
+      description:
+        "Background-checked professional pet walkers for daily exercise, leash training, and outdoor happiness with real-time route updates.",
+      image:
+        "https://images.unsplash.com/photo-1519331379826-f10be5486c6f?auto=format&fit=crop&w=800&q=80",
+      icon: <Zap className="w-5 h-5 text-[#dfba61]" />,
+      tag: "On-Demand Walk",
+    },
+    {
+      id: "emergency",
+      title: "24/7 Emergency Vet",
+      description:
+        "Instant hotline access to senior veterinary surgeons in Bangladesh, plus oxygen-equipped ambulance dispatch for critical pet care.",
+      image:
+        "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&q=80",
+      icon: <PhoneCall className="w-5 h-5 text-[#dfba61]" />,
+      tag: "24/7 Ambulance",
+    },
+    {
+      id: "breed",
+      title: "Breed Matchmaker",
+      description:
+        "Connect with verified pedigree pet owners for breeding, health compatibility analysis, and genetic disease screening.",
+      image:
+        "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=800&q=80",
+      icon: <HeartHandshake className="w-5 h-5 text-[#dfba61]" />,
+      tag: "Genetic Match",
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-slate-50 py-10 px-4 sm:px-6 lg:px-8 space-y-12">
+    <div className="min-h-screen bg-gradient-to-b from-[#132c38] via-[#0f212c] to-[#0a151d] text-slate-100 py-12 px-4 sm:px-6 lg:px-8 space-y-12 relative overflow-hidden font-sans">
       
-      {/* Catchy Hero Presentation */}
-      <div className="max-w-4xl mx-auto text-center space-y-4">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-400 text-slate-950 rounded-full font-black text-xs uppercase tracking-wider shadow-sm animate-bounce">
-          <Crown className="w-4 h-4 fill-current" />
-          <span>VIP Elite Healthcare Package</span>
-        </div>
+      {/* Background Ambient Glows */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#d4af37]/15 blur-[130px] pointer-events-none rounded-full" />
+      <div className="absolute bottom-10 right-10 w-[400px] h-[400px] bg-emerald-500/10 blur-[150px] pointer-events-none rounded-full" />
 
-        <h1 className="text-4xl sm:text-5xl font-black text-slate-900 font-display tracking-tight leading-tight">
-          {getTranslation(language, "premiumTitle")}
+      {/* Main Hero Header */}
+      <div className="max-w-3xl mx-auto text-center space-y-3 relative z-10">
+        <h1 className="text-4xl sm:text-5xl font-black tracking-tight leading-tight text-transparent bg-clip-text bg-gradient-to-r from-[#fef0cd] via-[#e5c158] to-[#cba33d] drop-shadow-sm">
+          Care that goes the extra mile.
         </h1>
-
-        <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
-          {getTranslation(language, "premiumSub")}
+        <p className="text-sm sm:text-base text-slate-300 font-medium">
+          Unlock our pet service designed for the pet parents who want the very best for their pets
         </p>
-
-        <div className="pt-2">
-          <button
-            onClick={handleContinueToCart}
-            className="px-8 py-4 bg-gradient-to-r from-amber-500 via-emerald-600 to-teal-600 hover:from-amber-600 hover:to-teal-700 text-white font-black text-sm rounded-2xl shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-0.5 flex items-center gap-2 mx-auto"
-          >
-            <span>{getTranslation(language, "subscribePremium")}</span>
-            <ArrowRight className="w-5 h-5" />
-          </button>
-        </div>
+        <p className="text-xs font-bold text-[#e5c158] pt-1">
+          Less than Tk 17/day
+        </p>
       </div>
 
-      {/* Premium Services Interactive Showcase Tabs */}
-      <div className="max-w-5xl mx-auto bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-200 space-y-8">
-        
-        {/* Tab Buttons */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-          {[
-            { id: "map", label: "Pet-Friendly Map", icon: <Compass className="w-4 h-4" /> },
-            { id: "walking", label: "Pet Walking Service", icon: <Zap className="w-4 h-4 text-emerald-600" /> },
-            { id: "emergency", label: "24/7 Emergency Vet", icon: <PhoneCall className="w-4 h-4 text-rose-600" /> },
-            { id: "breed", label: "Breed Matchmaker", icon: <HeartHandshake className="w-4 h-4 text-purple-600" /> },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
-              className={`p-3.5 rounded-2xl font-bold flex items-center justify-center gap-2 border transition-all ${
-                activeTab === tab.id
-                  ? "bg-slate-900 text-white border-slate-900 shadow-md"
-                  : "bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100"
-              }`}
-            >
-              {tab.icon}
-              <span>{tab.label}</span>
-            </button>
-          ))}
+      {/* Pricing Pill Badge */}
+      <div className="flex items-center justify-center gap-2 relative z-10">
+        <div className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs shadow-sm">
+          <Check className="w-3.5 h-3.5 stroke-[3]" />
         </div>
+        <span className="px-4 py-1.5 bg-gradient-to-r from-[#dfba61] via-[#c6a043] to-[#b88e2c] text-slate-950 font-black text-xs rounded-md shadow-[0_4px_14px_rgba(15,82,72,0.35)] border border-[#f3e1b6]/40">
+          Tk 500/ Month
+        </span>
+      </div>
 
-        {/* Tab Content Display */}
-        {activeTab === "map" && (
-          <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-100 pb-4">
-              <div>
-                <h3 className="text-xl font-black text-slate-900 font-display">
-                  Interactive Pet-Friendly Spots Map in Bangladesh
+      {/* 4 Vertical Service Cards Grid */}
+      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
+        {services.map((service) => (
+          <div
+            key={service.id}
+            className="bg-[#1c3a32]/90 border border-[#cba33d]/30 rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.3)] hover:border-[#dfba61]/60 transition-all flex flex-col justify-between"
+          >
+            {/* Upper Service Image */}
+            <div className="h-44 bg-slate-800 relative overflow-hidden">
+              <img
+                src={service.image}
+                alt={service.title}
+                className="w-full h-full object-cover"
+              />
+              <span className="absolute top-2 right-2 px-2.5 py-1 bg-slate-950/80 backdrop-blur-xs text-amber-200 text-[10px] font-bold rounded-md border border-[#cba33d]/30">
+                {service.tag}
+              </span>
+            </div>
+
+            {/* Lower Details Content */}
+            <div className="p-5 space-y-3 flex-1 flex flex-col justify-between">
+              <div className="space-y-2">
+                {/* Logo Icon Box */}
+                <div className="w-10 h-10 rounded-xl bg-[#0f212c] border border-[#cba33d]/40 flex items-center justify-center shadow-inner">
+                  {service.icon}
+                </div>
+
+                <h3 className="font-extrabold text-slate-100 text-base leading-snug">
+                  {service.title}
                 </h3>
-                <p className="text-xs text-slate-500">
-                  Discover parks, clinics, pet cafes, and grooming centers in Dhaka, Chattogram & Sylhet.
+                <p className="text-xs text-emerald-100/70 leading-relaxed font-medium">
+                  {service.description}
                 </p>
               </div>
-
-              {/* Filter Pills */}
-              <div className="flex items-center gap-1.5 text-xs font-bold">
-                {["all", "park", "cafe", "clinic"].map((t) => (
-                  <button
-                    key={t}
-                    onClick={() => setSelectedPlaceType(t)}
-                    className={`px-3 py-1.5 rounded-xl capitalize transition-colors ${
-                      selectedPlaceType === t ? "bg-emerald-600 text-white" : "bg-slate-100 text-slate-700"
-                    }`}
-                  >
-                    {t}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Simulated Interactive Map Display */}
-            <div className="relative h-80 rounded-3xl overflow-hidden bg-slate-900 text-white p-6 border border-slate-700 flex flex-col justify-between">
-              <div className="absolute inset-0 opacity-40 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]" />
-
-              <div className="relative z-10 flex items-center justify-between">
-                <span className="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded-full text-xs font-bold">
-                  ● GPS Live Map Active (Bangladesh)
-                </span>
-                <span className="text-xs text-slate-400 font-mono">23.7461° N, 90.3742° E</span>
-              </div>
-
-              {/* Pins Grid */}
-              <div className="relative z-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {filteredPlaces.map((place) => (
-                  <div
-                    key={place.id}
-                    className="p-3.5 bg-slate-800/90 border border-slate-700 rounded-2xl backdrop-blur-md space-y-1 text-xs"
-                  >
-                    <div className="flex items-center justify-between font-bold text-white">
-                      <span className="truncate">{place.name}</span>
-                      <span className="text-amber-400 font-mono">★ {place.rating}</span>
-                    </div>
-                    <p className="text-[11px] text-slate-300 flex items-center gap-1">
-                      <MapPin className="w-3.5 h-3.5 text-rose-400 shrink-0" />
-                      <span className="truncate">{place.address}</span>
-                    </p>
-                  </div>
-                ))}
-              </div>
-
-              <p className="relative z-10 text-[10px] text-slate-400 text-center">
-                Upgrade to ৳500 Premium Membership to unlock turn-by-turn navigation & exclusive discounts at pet cafes.
-              </p>
             </div>
           </div>
-        )}
+        ))}
+      </div>
 
-        {activeTab === "walking" && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-            <img
-              src="https://images.unsplash.com/photo-1519331379826-f10be5486c6f?auto=format&fit=crop&w=800&q=80"
-              alt="Pet Walking"
-              className="rounded-3xl h-64 w-full object-cover"
-            />
-            <div className="space-y-3 text-xs text-slate-700">
-              <h3 className="text-xl font-black text-slate-900 font-display">
-                Doorstep Professional Pet Walking
-              </h3>
-              <p className="leading-relaxed">
-                Background-checked, trained pet walkers take your dogs or active cats for daily exercise, leash training, and outdoor happiness.
-              </p>
-              <ul className="space-y-1.5 font-semibold">
-                <li className="flex items-center gap-2 text-emerald-700">
-                  <CheckCircle2 className="w-4 h-4" />
-                  <span>Live GPS Tracking during walks</span>
-                </li>
-                <li className="flex items-center gap-2 text-emerald-700">
-                  <CheckCircle2 className="w-4 h-4" />
-                  <span>30-min or 60-min sessions on demand</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        )}
-
-        {activeTab === "emergency" && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-            <img
-              src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&q=80"
-              alt="Emergency Vet"
-              className="rounded-3xl h-64 w-full object-cover"
-            />
-            <div className="space-y-3 text-xs text-slate-700">
-              <h3 className="text-xl font-black text-slate-900 font-display">
-                24/7 Emergency Vet Hotline & Ambulance
-              </h3>
-              <p className="leading-relaxed">
-                Direct phone & video access to senior surgeons in Bangladesh. Oxygen-equipped ambulance dispatch for critical pet care.
-              </p>
-              <div className="p-3 bg-rose-50 border border-rose-200 rounded-2xl text-rose-900 font-bold">
-                Emergency Hotline: +880 1700-FURCARE
-              </div>
-            </div>
-          </div>
-        )}
-
-        {activeTab === "breed" && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-            <img
-              src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=800&q=80"
-              alt="Breed Matching"
-              className="rounded-3xl h-64 w-full object-cover"
-            />
-            <div className="space-y-3 text-xs text-slate-700">
-              <h3 className="text-xl font-black text-slate-900 font-display">
-                Genetic Breed Matching & Compatibility
-              </h3>
-              <p className="leading-relaxed">
-                Connect with verified pedigree pet owners for breeding, health compatibility analysis, and genetic disease screening.
-              </p>
-            </div>
-          </div>
-        )}
-
-        {/* Benefits Checklist & Final CTA */}
-        <div className="pt-6 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="space-y-2">
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">What's included in ৳500 / month:</p>
-            <div className="flex flex-wrap gap-2 text-xs font-bold text-slate-800">
-              {(Array.isArray(getTranslation(language, "premiumBenefits"))
-                ? (getTranslation(language, "premiumBenefits") as unknown as string[])
-                : []
-              ).map((b, i) => (
-                <span key={i} className="px-3 py-1 bg-amber-50 text-amber-900 border border-amber-200 rounded-xl">
-                  ✓ {b}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <button
-            onClick={handleContinueToCart}
-            className="shrink-0 px-8 py-3.5 bg-gradient-to-r from-amber-500 to-emerald-600 hover:from-amber-600 hover:to-emerald-700 text-white font-black text-xs rounded-2xl shadow-lg transition-all"
-          >
-            {getTranslation(language, "subscribePremium")}
-          </button>
-        </div>
-
+      {/* Main Call To Action Button */}
+      <div className="text-center space-y-2 pt-2 pb-8 relative z-10">
+        <button
+          onClick={handleContinueToCart}
+          className="px-8 py-3.5 bg-gradient-to-r from-[#dfba61] via-[#c6a043] to-[#b88e2c] hover:from-[#ebc66f] hover:to-[#cfa339] text-slate-950 font-black text-sm rounded-xl shadow-[0_8px_20px_rgba(19,44,56,0.35)] hover:shadow-[0_10px_25px_rgba(15,82,72,0.45)] transition-all transform hover:-translate-y-0.5 cursor-pointer inline-flex items-center gap-2 border border-[#f3e1b6]/40"
+        >
+          <span>Continue — Tk 500</span>
+          <ArrowRight className="w-4 h-4" />
+        </button>
+        <p className="text-xs text-slate-400 font-medium">Cancel Anytime</p>
       </div>
 
     </div>
